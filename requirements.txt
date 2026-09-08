@@ -1,0 +1,28 @@
+# Web 框架
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+
+# 数据库
+sqlalchemy[asyncio]==2.0.36
+asyncmy==0.2.14
+aiosqlite==0.20.0  # 开发调试用（可选）
+
+# 数据校验（FastAPI 自带 Pydantic，但显式声明版本）
+pydantic==2.10.4
+pydantic-settings==2.7.1  # 读取 .env 配置
+
+# AI / LLM
+langchain==0.3.13
+langchain-openai==0.2.14
+langchain-community==0.3.12
+
+# JWT 认证
+pyjwt==2.10.1
+
+# 密码加密
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+
+# 工具
+python-multipart==0.0.19  # 文件上传
+python-dotenv==1.0.1      # 读取 .env

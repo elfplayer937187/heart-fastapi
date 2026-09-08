@@ -1,0 +1,26 @@
+# 忽略所有.pyc文件
+*.pyc
+# 忽略所有.venv文件
+.venv/
+# 忽略所有.env文件
+.env
+# 忽略所有.env.local文件
+.env.local
+# 忽略所有.env.development.local文件
+.env.development.local
+# 忽略所有.env.test.local文件
+.env.test.local
+# 忽略所有.env.production.local文件
+.env.production.local
+#pycache
+__pycache__/
+# 忽略所有.log文件
+*.log
+# 忽略所有.log.gz文件
+*.log.gz
+# 忽略所有.log.bz2文件
+*.log.bz2
+# 忽略所有.log.xz文件
+*.log.xz
+# 忽略所有.log.lzma文件
+*.log.lzma
