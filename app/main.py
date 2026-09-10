@@ -38,6 +38,8 @@ app.add_exception_handler(Exception, general_exception_handler)
 #添加JWT认证中间件
 app.add_middleware(JWTAuthenticationMiddleware)
 
+#添加用户路由
+app.include_router()
 @app.get("/")
 def read_root():
     return {"message": "Hello, World!"}

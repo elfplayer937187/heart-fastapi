@@ -1,3 +1,6 @@
+from sqlalchemy.ext.asyncio.session import AsyncSession
+
+
 from app.config import settings
 
 # 导入orm基类
@@ -14,7 +17,7 @@ DB_URL = f"mysql+asyncmy://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.D
 engine = create_async_engine(DB_URL, echo=True)
 
 # 创建会话工厂
-async_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+async_session = async_sessionmaker[AsyncSession](engine, expire_on_commit=False, class_=AsyncSession,autoflush=True)
 
 
 # 定义orm基类
