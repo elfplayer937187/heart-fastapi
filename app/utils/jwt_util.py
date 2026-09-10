@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 from app.config import settings
 from jwt import ExpiredSignatureError,InvalidTokenError
 from fastapi import Request
+
 # 签发者
 ISSUER = "mental-health-assistant"
 
@@ -62,4 +63,5 @@ def get_current_user_id(request:Request)->Optional[int]:
     return payload["userId"]
   except InvalidTokenError:
     return None
+  
   
