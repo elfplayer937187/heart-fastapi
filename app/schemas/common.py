@@ -17,18 +17,19 @@ class BaseResponse(BaseModel):
 class Code:
     """状态码常量（只用字符串常量，不需要枚举类）"""
 
-    SUCCESS = "200"
-    ERROR = "-1"
-    UNAUTHORIZED = "401"
-    SYSTEM_ERROR = "500"
-    PARAM_ERROR = "400"
-    BUSINESS_ERROR = "6000"
-    TOKEN_INVALID = "A0230"
-    TOKEN_ACCESS_FORBIDDEN = "A0231"
-    ACCESS_UNAUTHORIZED = "A0301"
-    ACCOUNT_SAME = "6001"
-    USER_NOT_EXIST = "6002"
+    SUCCESS = 200
+    BUSINESS_ERROR = 209
+    ACCOUNT_SAME = 210
+    USER_NOT_EXIST = 211
     
+    ERROR = -1
+    UNAUTHORIZED = 401
+    SYSTEM_ERROR = 500
+    PARAM_ERROR = 400
+    TOKEN_INVALID = 230
+    ACCESS_UNAUTHORIZED = 301
+    TOKEN_ACCESS_FORBIDDEN = 231
+
 #定义快捷方法
 
 #成功响应

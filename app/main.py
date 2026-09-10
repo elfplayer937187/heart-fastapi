@@ -11,7 +11,7 @@ from app.exceptions.handler import (
 from starlette.authentication import AuthenticationError
 
 from app.middleware.jwt_middleware import JWTAuthenticationMiddleware
-
+from app.api import user
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
@@ -39,7 +39,7 @@ app.add_exception_handler(Exception, general_exception_handler)
 app.add_middleware(JWTAuthenticationMiddleware)
 
 #添加用户路由
-app.include_router()
+app.include_router(user.router)
 @app.get("/")
 def read_root():
     return {"message": "Hello, World!"}

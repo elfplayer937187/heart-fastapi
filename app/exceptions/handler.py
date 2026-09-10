@@ -1,4 +1,3 @@
-from email import message
 from fastapi import Request, HTTPException
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -12,11 +11,15 @@ async def business_exception_handler(
 ) -> JSONResponse:
     """
     处理业务异常（BusinessException）
+
+    注意：HTTP 状态码必须是合法的 HTTP 状态码（100~599），
+    业务码（6000、6001 等）只能放在响应体的 code 字段里，不能当 status_code 用，
+    否则 uvicorn 查 STATUS_LINE 会 KeyError，响应直接发不出去。
     """
     return JSONResponse(
-        status_code=Code.BUSINESS_ERROR,
+        status_code=Code.SUCCESS,
         content=error(
-            code=Code.BUSINESS_ERROR, msg=exc.message, data=exc.data
+            code=exc.code, msg=exc.message, data=exc.data
         ).model_dump(),
     )
 
@@ -35,21 +38,21 @@ async def validation_exception_handler(
     errors=exc.errors()
     message=[]
     
-    for error in errors:
+    for err in errors:
       #获取错误字段
-      field='->'.join([str(e) for e in error.get('loc')])
+      field='->'.join([str(e) for e in err.get('loc')])
 
       #获取错误消息
-      msg=error.get('msg') or '参数校验失败'
+      msg=err.get('msg') or '参数校验失败'
       
       message.append(f"{field}:{msg}")
       
     str_message=';'.join(message) if message else "参数校验失败"
     
     return JSONResponse(
-      status_code=Code.VALIDATION_ERROR,
+      status_code=Code.PARAM_ERROR,
       content=error(
-        code=Code.VALIDATION_ERROR,
+        code=Code.PARAM_ERROR,
         msg=str_message,
       ).model_dump(),
     )

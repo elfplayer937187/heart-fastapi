@@ -90,4 +90,4 @@ class UserLoginResponse(BaseModel):
 
 def build_login_response(token:str,user_info:UserDetailResponse)->UserLoginResponse:
   """构建登录响应"""
-  return UserLoginResponse(token=token,role_type=user_info.role_type,user_info=user_info)
+  return UserLoginResponse(token=token,role_type=str(user_info.user_type),user_info=user_info)
