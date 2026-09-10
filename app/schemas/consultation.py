@@ -5,26 +5,35 @@ from pydantic import BaseModel, Field
 
 # ==================== 请求体 ====================
 
+
 class ConsultationSessionCreate(BaseModel):
     """开始会话请求体 — 对应 ConsultationSessionCreateDTO.java"""
+
     session_title: Optional[str] = Field(None, max_length=200, description="会话标题")
-    initial_message: str = Field(..., min_length=1, max_length=2000, description="初始消息")
+    initial_message: str = Field(
+        ..., min_length=1, max_length=2000, description="初始消息"
+    )
 
     model_config = {"extra": "forbid"}
 
 
 class ConsultationStream(BaseModel):
     """流式对话请求体 — 对应 ConsultationStreamDTO.java"""
+
     session_id: str = Field(..., description="会话ID（格式: session_xxx）")
-    user_message: str = Field(..., min_length=1, max_length=2000, description="用户消息")
+    user_message: str = Field(
+        ..., min_length=1, max_length=2000, description="用户消息"
+    )
 
     model_config = {"extra": "forbid"}
 
 
 # ==================== 响应体 ====================
 
+
 class StreamChatSession(BaseModel):
     """会话启动响应 — 对应 StructOutPut.StreamChatSession"""
+
     session_id: str
     user_hash: int
     initial_message: str
@@ -36,6 +45,7 @@ class StreamChatSession(BaseModel):
 
 class ConsultationMessageResponse(BaseModel):
     """消息响应 — 对应 ConsultationMessageResponseDTO.java"""
+
     id: int
     session_id: int
     sender_type: int
@@ -52,6 +62,7 @@ class ConsultationMessageResponse(BaseModel):
 
 
 # ==================== 转换函数 ====================
+
 
 def message_to_response(message) -> ConsultationMessageResponse:
     """

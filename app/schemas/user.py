@@ -21,11 +21,11 @@ class UserRegisterRequest(BaseModel):
     email: str = Field(
         description="邮箱", pattern=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
     )
-    nickname: Optional[str] = Field(min_length=6, max_length=50, description="昵称")
-    phone: Optional[str] = Field(description="手机号", pattern=r"^1[3-9]\d{9}$")
+    nickname: Optional[str] = Field(min_length=6, max_length=50, description="昵称",default="")
+    phone: Optional[str] = Field(description="手机号", pattern=r"^1[3-9]\d{9}$",default="")
     password: str = Field(min_length=2, max_length=50, description="密码")
     confirm_password: str = Field(min_length=2, max_length=50, description="确认密码")
-    gender: Optional[int] = Field(description="性别", ge=0, le=2)
+    gender: Optional[int] = Field(description="性别", ge=0, le=2,default=0)
     user_type: Optional[int] = Field(1)
     birthday: Optional[date] = None
 
