@@ -1,5 +1,6 @@
 from ast import stmt
 from datetime import datetime
+from time import timezone
 from typing import List
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,7 +17,7 @@ from app.exceptions.business_exception import BusinessException
 class ConsultationSessionService:
     def __init__(self, session: AsyncSession):
         self.session = session
-
+    #创建会话
     async def create_consultation_session(
         self, user_id: int, consultation_session: ConsultationSessionCreate
     ) -> ConsultationSession:
@@ -44,7 +45,7 @@ class ConsultationSessionService:
         new_session=ConsultationSession(
           user_id=user_id,
           session_title=session_title,
-          started_at=datetime.now(),
+          started_at=datetime.now(timezone.utc),
         )
         
         #3. 插入数据库
@@ -52,7 +53,7 @@ class ConsultationSessionService:
         await self.session.commit()
         return new_session
       
-      
+    #根据会话ID查询会话
     async def get_session_by_id(self, session_id: int) -> ConsultationSession:
       """
       流程：

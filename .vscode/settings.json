@@ -1,7 +1,12 @@
 {
   "code-runner.executorMap": {
-    "python": "${workspaceFolder}/.venv/Scripts/python.exe -u \"$fullFileName\""
+    // 注意：code-runner 的占位符是 $workspaceRoot，不是 ${workspaceFolder}（后者仅用于 tasks.json）
+    // $fullFileName 自身已带引号，不能再手动加 \"，否则会变成 ""路径""
+    "python": "$workspaceRoot/.venv/Scripts/python.exe -u $fullFileName"
   },
+  // cwd 配置项是原样读取的、不展开变量，所以不写 code-runner.cwd；
+  // 该项为 false 时 cwd 默认就是工作区根目录，保证 from app.xxx import 能正常解析
+  "code-runner.fileDirectoryAsCwd": false,
   // 在集成终端中运行，输出可交互、支持编码显示
   "code-runner.runInTerminal": true,
   "code-runner.clearPreviousOutput": true,
@@ -10,7 +15,16 @@
   
   "python.languageServer": "None",
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.defaultFormatter": "auto",
 
+  // 统一使用 4 个空格缩进
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+  },
 
   "python.analysis.packageIndexDepths": [
     {

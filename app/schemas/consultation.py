@@ -1,6 +1,7 @@
 from typing import Optional
 from datetime import datetime
 from pydantic import BaseModel, Field
+from app.models.consultation_message import ConsultationMessage
 
 
 # ==================== 请求体 ====================
@@ -18,7 +19,7 @@ class ConsultationSessionCreate(BaseModel):
 
 
 class ConsultationStream(BaseModel):
-    """流式对话请求体 — 对应 ConsultationStreamDTO.java"""
+    """流式对话请求体"""
 
     session_id: str = Field(..., description="会话ID（格式: session_xxx）")
     user_message: str = Field(
@@ -32,7 +33,7 @@ class ConsultationStream(BaseModel):
 
 
 class StreamChatSession(BaseModel):
-    """会话启动响应 — 对应 StructOutPut.StreamChatSession"""
+    """会话启动响应"""
 
     session_id: str
     user_hash: int
@@ -44,7 +45,7 @@ class StreamChatSession(BaseModel):
 
 
 class ConsultationMessageResponse(BaseModel):
-    """消息响应 — 对应 ConsultationMessageResponseDTO.java"""
+    """消息响应"""
 
     id: int
     session_id: int
@@ -64,10 +65,9 @@ class ConsultationMessageResponse(BaseModel):
 # ==================== 转换函数 ====================
 
 
-def message_to_response(message) -> ConsultationMessageResponse:
+def message_to_response(message:ConsultationMessage) -> ConsultationMessageResponse:
     """
     将 ConsultationMessage 实体转为响应 DTO
-    对应 Java 的 convertToResponseDTO() 方法
     """
     return ConsultationMessageResponse(
         id=message.id,
